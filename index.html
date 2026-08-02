@@ -430,6 +430,7 @@ function render(){
         <button class="edit" data-consumeid="${i.id}">食べた/使った</button>
         <button class="edit" data-foundid="${i.id}">在庫を発見</button>
         <button class="edit" data-editid="${i.id}">棚卸し</button>
+        <button class="edit" data-infoeditid="${i.id}">商品名/単位を編集</button>
         <button class="edit" data-deleteid="${i.id}" style="color:var(--urgent);">削除</button>
       </div>
       <div class="edit-form" id="consume-${i.id}" style="display:none;">
@@ -443,6 +444,11 @@ function render(){
       <div class="edit-form" id="edit-${i.id}" style="display:none;">
         <input type="number" step="0.1" min="0" id="editval-${i.id}" placeholder="現在の総数(${i.unit})">
         <button data-saveid="${i.id}">保存</button>
+      </div>
+      <div class="edit-form" id="infoedit-${i.id}" style="display:none;">
+        <input type="text" id="infonameval-${i.id}" value="${i.name}" placeholder="商品名" style="flex:1.2;">
+        <input type="text" id="infounitval-${i.id}" value="${i.unit}" placeholder="単位(個/袋/本等)" style="width:70px;">
+        <button data-infosaveid="${i.id}">保存</button>
       </div>`;
     });
     html += `
@@ -552,6 +558,32 @@ function bindEvents(){
     render();
     showToast(name+'を在庫に追加しました');
   };
+
+  document.querySelectorAll('[data-infoeditid]').forEach(el=>{
+    el.onclick = ()=>{
+      const id = el.dataset.infoeditid;
+      const form = document.getElementById('infoedit-'+id);
+      form.style.display = form.style.display==='none' ? 'flex' : 'none';
+    };
+  });
+  document.querySelectorAll('[data-infosaveid]').forEach(el=>{
+    el.onclick = async ()=>{
+      const id = el.dataset.infosaveid;
+      const newName = document.getElementById('infonameval-'+id).value.trim();
+      const newUnit = document.getElementById('infounitval-'+id).value.trim();
+      if(!newName){ showToast('商品名を入力してください'); return; }
+      const item = state.inventory.find(i=>i.id===id);
+      const prevName = item.name, prevUnit = item.unit;
+      item.name = newName;
+      item.unit = newUnit;
+      if(prevName !== newName || prevUnit !== newUnit){
+        state.consumptionLog.push({date: todayStr(), name:newName, qty:null, unit:newUnit, note:`商品情報を編集（${prevName}/${prevUnit} → ${newName}/${newUnit}）`});
+      }
+      await saveState();
+      render();
+      showToast('商品情報を更新しました');
+    };
+  });
 
   document.querySelectorAll('[data-deleteid]').forEach(el=>{
     el.onclick = ()=>{ pendingDeleteId = el.dataset.deleteid; render(); };
