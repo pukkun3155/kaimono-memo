@@ -199,31 +199,54 @@ const daysBetween = (a,b) => {
 
 const SEED = {
   inventory: [
-    {id:'konnyaku', name:'蒟蒻ゼリー', unit:'個', confirmedQty:5, dailyRate:1, buyAt:2, mode:'active', lastConfirmedDate: todayStr(), note:'1日1個'},
-    {id:'aisu', name:'棒付きアイス', unit:'本', confirmedQty:null, dailyRate:1, buyAt:2, mode:'unconfirmed', lastConfirmedDate:null, note:'5本/7本で記録が混在。現物確認が必要'},
-    {id:'cocaplus', name:'コカ・コーラプラス', unit:'本', confirmedQty:2, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate: todayStr(), note:'消費ペース未確定'},
-    {id:'tonyu', name:'無調整豆乳', unit:'本', confirmedQty:null, dailyRate:0.25, buyAt:0.25, mode:'unconfirmed', lastConfirmedDate:null, note:'1本で4日分。購入後の消費反映が不明'},
-    {id:'salada', name:'サラダチキン', unit:'個', confirmedQty:2, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:null, note:'消費ペース未確定'},
+    {id:'konnyaku', name:'蒟蒻ゼリー', unit:'個', confirmedQty:4, dailyRate:1, buyAt:2, mode:'active', lastConfirmedDate:'2026-08-01', note:'1日1個'},
+    {id:'aisu', name:'棒付きアイス', unit:'本', confirmedQty:3, dailyRate:1, buyAt:2, mode:'active', lastConfirmedDate:'2026-08-01', note:'現物確認により3本で確定（5本/7本の混在記録は解消）'},
+    {id:'cocaplus', name:'コカ・コーラプラス', unit:'本', confirmedQty:0.5, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate:'2026-08-02', note:'消費ペース未確定'},
+    {id:'tonyu', name:'無調整豆乳', unit:'本', confirmedQty:1, dailyRate:0.25, buyAt:0.25, mode:'active', lastConfirmedDate:'2026-08-01', note:'1本で4日分。8/1に現物確認により1本で確定'},
+    {id:'salada', name:'サラダチキン', unit:'個', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:'2026-08-01', note:'消費ペース未確定'},
     {id:'haburashi', name:'電動歯ブラシ替えブラシ', unit:'本', confirmedQty:2, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:null, note:'交換周期未確定'},
     {id:'almond', name:'アーモンド', unit:'個', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:null, note:'内容量・単位要確認'},
     {id:'choco', name:'チョコレート', unit:'個', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:null, note:'内容量・単位要確認'},
-    {id:'reitou', name:'冷凍野菜', unit:'袋', confirmedQty:1, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate: todayStr(), note:'消費ペース不規則'},
+    {id:'reitou', name:'冷凍野菜', unit:'袋', confirmedQty:1, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate:'2026-08-01', note:'消費ペース不規則'},
     {id:'cola', name:'コカ・コーラ', unit:'本', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:null, note:'コカ・コーラプラスとは別商品'},
     {id:'daconil', name:'ダコニール1000', unit:'本', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:null, note:'園芸用品'},
     {id:'supoito', name:'計量スポイト', unit:'本', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:null, note:'非消耗品扱い'},
-    {id:'peyang', name:'ペヤングソース焼きそば', unit:'個', confirmedQty:2, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate: todayStr(), note:''},
-    {id:'yogurt', name:'ヨーグルト', unit:'個', confirmedQty:8, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate: todayStr(), note:'消費ペース未確定'},
-    {id:'ooolong', name:'水出し烏龍茶ティーバッグ', unit:'袋', confirmedQty:1, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate: todayStr(), note:'1袋52袋入り'},
+    {id:'peyang', name:'ペヤングソース焼きそば', unit:'個', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:'2026-08-02', note:'8/2に1個消費'},
+    {id:'yogurt', name:'ヨーグルト', unit:'個', confirmedQty:6, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate:'2026-08-02', note:'消費ペース未確定'},
+    {id:'ooolong', name:'水出し烏龍茶ティーバッグ', unit:'袋', confirmedQty:1, dailyRate:null, buyAt:null, mode:'hold', lastConfirmedDate:'2026-08-01', note:'1袋52袋入り'},
+    {id:'miso', name:'味噌汁（36個入り）', unit:'袋', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:'2026-08-01', note:'1袋36個入り。iPhoneアプリより移行'},
+    {id:'butabara', name:'豚バラ肉', unit:'パック', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:'2026-08-01', note:'iPhoneアプリより移行'},
+    {id:'katsuomuichibutsu', name:'カツオ無一物（猫の餌）', unit:'袋', confirmedQty:1, dailyRate:null, buyAt:null, mode:'excluded', lastConfirmedDate:'2026-08-01', note:'iPhoneアプリより移行'},
   ],
-  shopping: [
-    {id:'s1', name:'LR44 ボタン電池', plannedQty:2, unit:'個', note:''},
-    {id:'s2', name:'味噌汁（36個入り）', plannedQty:1, unit:'袋', note:'1袋36個入り'},
-    {id:'s3', name:'豚バラ肉', plannedQty:1, unit:'パック', note:''},
-    {id:'s4', name:'猫用かつお', plannedQty:5, unit:'本', note:''},
-    {id:'s5', name:'カツオ無一物（猫の餌）', plannedQty:1, unit:'袋', note:''},
+  shopping: [],
+  purchaseLog: [
+    {date:'2026-08-01', name:'ペヤングソース焼きそば', qty:2, unit:'個', note:''},
+    {date:'2026-08-01', name:'ヨーグルト', qty:8, unit:'個', note:''},
+    {date:'2026-08-01', name:'水出し烏龍茶ティーバッグ（5g・52袋入）', qty:1, unit:'袋', note:'買い物リストから削除済み'},
+    {date:'2026-08-01', name:'LR44 ボタン電池', qty:2, unit:'個', note:''},
+    {date:'2026-08-01', name:'味噌汁（36個入り）', qty:1, unit:'袋', note:'1袋36個入り'},
+    {date:'2026-08-01', name:'豚バラ肉', qty:1, unit:'パック', note:''},
+    {date:'2026-08-01', name:'猫用かつお', qty:5, unit:'本', note:''},
+    {date:'2026-08-01', name:'カツオ無一物（猫の餌）', qty:1, unit:'袋', note:''},
+    {date:'2026-08-01', name:'無調整豆乳', qty:1, unit:'本', note:'2026-07-19分とは別の追加購入'},
+    {date:'2026-07-19', name:'無調整豆乳', qty:1, unit:'本', note:'1本で4日分'},
   ],
-  purchaseLog: [],
-  consumptionLog: [],
+  consumptionLog: [
+    {date:'2026-08-01', name:'蒟蒻ゼリー', qty:2, unit:'個', note:'7個から5個へ更新'},
+    {date:'2026-08-01', name:'冷凍野菜', qty:0.5, unit:'袋', note:'1.5袋から1袋へ更新'},
+    {date:'2026-08-01', name:'コカ・コーラプラス', qty:1, unit:'本', note:'3本から2本へ更新'},
+    {date:'2026-08-01', name:'棒付きアイス', qty:null, unit:'本', note:'在庫調整（要確認 → 4本）'},
+    {date:'2026-08-01', name:'無調整豆乳', qty:null, unit:'本', note:'在庫調整（要確認 → 0本）'},
+    {date:'2026-08-01', name:'サラダチキン', qty:1, unit:'個', note:'消費記録（2個 → 1個）'},
+    {date:'2026-08-01', name:'ヨーグルト', qty:1, unit:'個', note:'消費記録（8個 → 7個）'},
+    {date:'2026-08-01', name:'蒟蒻ゼリー', qty:1, unit:'個', note:'消費記録（5個 → 4個）'},
+    {date:'2026-08-01', name:'コカ・コーラプラス', qty:1, unit:'本', note:'消費記録（2本 → 1本）'},
+    {date:'2026-08-01', name:'棒付きアイス', qty:1, unit:'本', note:'消費記録（4本 → 3本）'},
+    {date:'2026-08-01', name:'コカ・コーラプラス', qty:0.2, unit:'本', note:'消費記録（1本 → 0.8本）'},
+    {date:'2026-08-02', name:'コカ・コーラプラス', qty:0.3, unit:'本', note:'消費記録（0.8本 → 0.5本）'},
+    {date:'2026-08-02', name:'ヨーグルト', qty:1, unit:'個', note:'消費記録（7個 → 6個）'},
+    {date:'2026-08-02', name:'ペヤングソース焼きそば', qty:1, unit:'個', note:'消費記録（2個 → 1個）'},
+  ],
 };
 
 let state = null;
@@ -231,6 +254,7 @@ let tab = 'today';
 let checks = {}; // id -> {checked, qty}
 let saveFailed = false;
 let pendingReset = false;
+let pendingDeleteId = null;
 let pendingRestoreConfirm = false;
 let backupBoxOpen = false;
 let backupTextValue = '';
@@ -390,6 +414,15 @@ function render(){
     html += `<div class="card"><h2>📦 在庫一覧</h2><p class="sub">「食べた/使った」で消費数を記録、「棚卸し」で現物の総数に直接修正できます</p>`;
     state.inventory.forEach(i=>{
       const qtyText = i.confirmedQty==null ? '要確認' : `${i.confirmedQty}${i.unit}`;
+      if(pendingDeleteId === i.id){
+        html += `
+        <div class="invrow">
+          <div class="n"><b style="color:var(--urgent);">${i.name} を削除しますか？</b><span>この操作は取り消せません</span></div>
+          <button class="edit" data-deleteconfirmid="${i.id}" style="color:var(--urgent); font-weight:700; border-color:var(--urgent);">はい、削除する</button>
+          <button class="edit" data-deletecancelid="${i.id}">キャンセル</button>
+        </div>`;
+        return;
+      }
       html += `
       <div class="invrow">
         <div class="n"><b>${i.name}</b><span>${i.note||''}${i.lastConfirmedDate?' ・最終確認 '+i.lastConfirmedDate:''}</span></div>
@@ -397,6 +430,7 @@ function render(){
         <button class="edit" data-consumeid="${i.id}">食べた/使った</button>
         <button class="edit" data-foundid="${i.id}">在庫を発見</button>
         <button class="edit" data-editid="${i.id}">棚卸し</button>
+        <button class="edit" data-deleteid="${i.id}" style="color:var(--urgent);">削除</button>
       </div>
       <div class="edit-form" id="consume-${i.id}" style="display:none;">
         <input type="number" step="0.1" min="0" id="consumeval-${i.id}" placeholder="消費した数">
@@ -518,6 +552,27 @@ function bindEvents(){
     render();
     showToast(name+'を在庫に追加しました');
   };
+
+  document.querySelectorAll('[data-deleteid]').forEach(el=>{
+    el.onclick = ()=>{ pendingDeleteId = el.dataset.deleteid; render(); };
+  });
+  document.querySelectorAll('[data-deletecancelid]').forEach(el=>{
+    el.onclick = ()=>{ pendingDeleteId = null; render(); };
+  });
+  document.querySelectorAll('[data-deleteconfirmid]').forEach(el=>{
+    el.onclick = async ()=>{
+      const id = el.dataset.deleteconfirmid;
+      const item = state.inventory.find(i=>i.id===id);
+      if(item){
+        state.inventory = state.inventory.filter(i=>i.id!==id);
+        state.consumptionLog.push({date: todayStr(), name:item.name, qty:null, unit:item.unit, note:'在庫から削除（商品ごと削除）'});
+      }
+      pendingDeleteId = null;
+      await saveState();
+      render();
+      showToast(item ? item.name+'を在庫から削除しました' : '削除しました');
+    };
+  });
 
   document.querySelectorAll('[data-editid]').forEach(el=>{
     el.onclick = ()=>{
