@@ -859,11 +859,19 @@ async function commitPurchases(){
       const s = state.shopping.find(x=>x.id===id);
       if(!s) continue;
       state.purchaseLog.push({date:today, name:s.name, qty:c.qty, unit:s.unit, note:''});
-      // 在庫に反映（同名の在庫があれば加算）
+      // 在庫に反映：既存の在庫があれば加算、無ければ新規に在庫として登録する
       const inv = state.inventory.find(i=>i.name===s.name);
-      if(inv && inv.confirmedQty!=null){
-        inv.confirmedQty += c.qty;
+      if(inv){
+        inv.confirmedQty = (inv.confirmedQty==null ? 0 : inv.confirmedQty) + c.qty;
         inv.lastConfirmedDate = today;
+        if(inv.mode==='unconfirmed') inv.mode='active';
+      } else {
+        state.inventory.push({
+          id: 'inv'+Date.now()+Math.floor(Math.random()*1000),
+          name: s.name, unit: s.unit || '',
+          confirmedQty: c.qty, dailyRate: null, buyAt: null, mode: 'excluded',
+          lastConfirmedDate: today, note: '買い物リストからの購入で新規登録・消費ペース未確定'
+        });
       }
       state.shopping = state.shopping.filter(x=>x.id!==id);
       count++;
