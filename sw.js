@@ -1,4 +1,4 @@
-const CACHE_NAME = "kaimono-note-v1";
+const CACHE_NAME = "kaimono-note-v2";
 const BASE_URL = new URL("./", self.registration.scope).href;
 const APP_SHELL = [BASE_URL, new URL("manifest.webmanifest", BASE_URL).href, new URL("icon-192.png", BASE_URL).href];
 
